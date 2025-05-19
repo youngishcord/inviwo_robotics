@@ -26,32 +26,69 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *********************************************************************************/
+#pragma once
 
-#include <inviwo/template/processors/templateProcessor.h>
+#include <inviwo/robotics/roboticsmoduledefine.h>
+#include <inviwo/core/processors/processor.h>
+#include <inviwo/core/common/inviwo.h>
+#include <inviwo/core/properties/buttonproperty.h>
+#include <inviwo/core/processors/processorinfo.h>
+#include <inviwo/core/properties/stringproperty.h>
+#include <inviwo/core/properties/compositeproperty.h>
+#include <inviwo/core/properties/listproperty.h>
+#include <inviwo/core/properties/ordinalproperty.h>
 
 namespace inviwo {
 
-    const ProcessorInfo TemplateProcessor::processorInfo_{
-        "org.template.processor",  // Class identifier
-        "templateProcessor",                    // Display name
-        "template",                     // Category
-        CodeState::Stable,                   // Code state
-        Tags::CPU                           // Tags
-        };
+/**
+ * \brief VERY_BRIEFLY_DESCRIBE_THE_CLASS
+ * DESCRIBE_THE_CLASS_FROM_A_DEVELOPER_PERSPECTIVE
+ */
+class IVW_MODULE_ROBOTICS_API RoboticsProcessor : public Processor {
+public:
+    RoboticsProcessor();
+    virtual ~RoboticsProcessor() = default;
 
-    TemplateProcessor::TemplateProcessor()
-        : Processor()
-    {
-        LogInfo("template loaded");
-    }
+    virtual void process() override;
 
-void inviwo::TemplateProcessor::process() {
-    LogInfo("ECHO FROM FIRST PROCESSOR");
-}
+    virtual const ProcessorInfo& getProcessorInfo() const override;
+    static const ProcessorInfo processorInfo_;
 
-const ProcessorInfo TemplateProcessor::getProcessorInfo() const
-{
-    return processorInfo_;
-}
+    void calcInverse();
+
+private:
+
+    CompositeProperty composite;
+    ListProperty list;
+
+    //FloatMat4Property g1;
+    //FloatMat4Property g2;
+
+    bool onInverse = false;
+    bool onForward = false;
+    
+    FloatMat4Property startPos;
+    
+    FloatProperty g1;
+    FloatProperty l1;
+    FloatMat4Property g1Pos;
+    FloatVec3Property outG1Pos;
+
+    FloatProperty g2;
+    FloatProperty l2;
+    FloatMat4Property g2Pos;
+    FloatVec3Property outG2Pos;
+    
+    FloatProperty g3;
+    FloatProperty l3;
+    FloatMat4Property g3Pos;
+    FloatVec3Property outG3Pos;
+
+    FloatMat4Property resultPos;
+    FloatVec3Property outFPos;
+
+
+
+};
 
 }  // namespace inviwo

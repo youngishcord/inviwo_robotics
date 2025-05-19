@@ -28,15 +28,15 @@
  *********************************************************************************/
 #pragma once
 
-#include <inviwo/template/templatemoduledefine.h>
+#include <inviwo/robotics/roboticsmoduledefine.h>
 #include <inviwo/core/common/inviwomodule.h>
 
 namespace inviwo {
 
-class IVW_MODULE_TEMPLATE_API TemplateModule : public InviwoModule {
+class IVW_MODULE_ROBOTICS_API RoboticsModule : public InviwoModule {
 public:
-    TemplateModule(InviwoApplication* app);
-    virtual ~TemplateModule() = default;
+    RoboticsModule(InviwoApplication* app);
+    virtual ~RoboticsModule() = default;
 };
 
 }  // namespace inviwo

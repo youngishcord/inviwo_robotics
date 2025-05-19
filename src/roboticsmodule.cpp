@@ -27,20 +27,20 @@
  *
  *********************************************************************************/
 
-#include <inviwo/template/templatemodule.h>
-#include <inviwo/template/processors/templateProcessor.h>
+#include <inviwo/robotics/roboticsmodule.h>
+#include <inviwo/robotics/processors/roboticsProcessor.h>
 
 namespace inviwo {
 
-TemplateModule::TemplateModule(InviwoApplication* app) : InviwoModule(app, "template") {
-    LogInfo("template was loaded");
+RoboticsModule::RoboticsModule(InviwoApplication* app) : InviwoModule(app, "robotics") {
+    LogInfo("robotics was loaded");
     // Add a directory to the search path of the Shadermanager
     // ShaderManager::getPtr()->addShaderSearchPath(getPath(ModulePath::GLSL));
 
     // Register objects that can be shared with the rest of inviwo here:
 
     // Processors
-    registerProcessor<TemplateProcessor>();
+    registerProcessor<RoboticsProcessor>();
 
     // Properties
     // registerProperty<mySimpleTestModuleProperty>();

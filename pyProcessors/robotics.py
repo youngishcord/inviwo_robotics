@@ -8,7 +8,7 @@ from inviwopy.properties import ConstraintBehavior as cb
 
 class dataAnalyzer(ivw.Processor):
     """
-    Documentation of template
+    Documentation of robotics
     """
 
     def __init__(self, id, name):

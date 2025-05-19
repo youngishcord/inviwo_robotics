@@ -1,15 +1,15 @@
-ivw_module(Template)
+ivw_module(Robotics)
 
 set(HEADER_FILES
-    include/inviwo/template/templatemodule.h
-    include/inviwo/template/templatemoduledefine.h
-    include/inviwo/template/processors/templateProcessor.h
+    include/inviwo/robotics/roboticsmodule.h
+    include/inviwo/robotics/roboticsmoduledefine.h
+    include/inviwo/robotics/processors/roboticsProcessor.h
 )
 ivw_group("Header Files" ${HEADER_FILES})
 
 set(SOURCE_FILES
-    src/templatemodule.cpp
-    src/processors/templateProcessor.cpp
+    src/roboticsmodule.cpp
+    src/processors/roboticsProcessor.cpp
 )
 ivw_group("Source Files" ${SOURCE_FILES})
 
@@ -20,12 +20,12 @@ ivw_group("Python Files" ${PYTHON_FILES})
 
 set(SHADER_FILES
 	# Add shaders
-    pyProcessors/template.py
+    pyProcessors/robotics.py
 )
 ivw_group("Shader Files" ${SHADER_FILES})
 
 set(TEST_FILES
-    tests/unittests/template-unittest-main.cpp
+    tests/unittests/robotics-unittest-main.cpp
 )
 ivw_add_unittest(${TEST_FILES})
 
