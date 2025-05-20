@@ -55,6 +55,7 @@ public:
     static const ProcessorInfo processorInfo_;
 
     void calcInverse();
+    float angCalc(vec3 a, vec3 b, vec3 n);
 
 private:
 
@@ -65,7 +66,7 @@ private:
     //FloatMat4Property g2;
 
     bool onInverse = false;
-    bool onForward = false;
+    bool onForward = true;
     
     FloatMat4Property startPos;
     
@@ -84,11 +85,27 @@ private:
     FloatMat4Property g3Pos;
     FloatVec3Property outG3Pos;
 
+    FloatProperty g4;
+    FloatProperty l4;
+    FloatMat4Property g4Pos;
+    FloatVec3Property outG4Pos;
+    
+    FloatProperty g5;
+    FloatProperty l5;
+    FloatMat4Property g5Pos;
+    FloatVec3Property outG5Pos;
+
+    FloatProperty g6;
+    FloatProperty l6;
+    FloatMat4Property g6Pos;
+    FloatVec3Property outG6Pos;
+
     FloatMat4Property resultPos;
     FloatVec3Property outFPos;
 
 
 
 };
+
 
 }  // namespace inviwo
