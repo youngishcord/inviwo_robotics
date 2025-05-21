@@ -29,10 +29,14 @@
 
 #include <inviwo/robotics/roboticsmodule.h>
 #include <inviwo/robotics/processors/roboticsProcessor.h>
+#include <inviwo/robotics/processors/inverseKinematicProcessor.h>
 
 namespace inviwo {
 
-RoboticsModule::RoboticsModule(InviwoApplication* app) : InviwoModule(app, "robotics") {
+RoboticsModule::RoboticsModule(InviwoApplication* app)
+    : InviwoModule(app, "robotics") 
+    , pythonFolderObserver_{ app, getPath() / "pyProcessors", *this } 
+{
     LogInfo("robotics was loaded");
     // Add a directory to the search path of the Shadermanager
     // ShaderManager::getPtr()->addShaderSearchPath(getPath(ModulePath::GLSL));
@@ -41,6 +45,7 @@ RoboticsModule::RoboticsModule(InviwoApplication* app) : InviwoModule(app, "robo
 
     // Processors
     registerProcessor<RoboticsProcessor>();
+    registerProcessor<InverseKinematicProcessor>();
 
     // Properties
     // registerProperty<mySimpleTestModuleProperty>();

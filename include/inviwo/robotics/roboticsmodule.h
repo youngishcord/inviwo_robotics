@@ -31,12 +31,16 @@
 #include <inviwo/robotics/roboticsmoduledefine.h>
 #include <inviwo/core/common/inviwomodule.h>
 
+#include <modules/python3/pythonprocessorfolderobserver.h>
+
 namespace inviwo {
 
 class IVW_MODULE_ROBOTICS_API RoboticsModule : public InviwoModule {
 public:
     RoboticsModule(InviwoApplication* app);
     virtual ~RoboticsModule() = default;
+
+    PythonProcessorFolderObserver pythonFolderObserver_;
 };
 
 }  // namespace inviwo

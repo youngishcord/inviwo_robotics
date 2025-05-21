@@ -4,12 +4,14 @@ set(HEADER_FILES
     include/inviwo/robotics/roboticsmodule.h
     include/inviwo/robotics/roboticsmoduledefine.h
     include/inviwo/robotics/processors/roboticsProcessor.h
+    include/inviwo/robotics/processors/inverseKinematicProcessor.h
 )
 ivw_group("Header Files" ${HEADER_FILES})
 
 set(SOURCE_FILES
     src/roboticsmodule.cpp
     src/processors/roboticsProcessor.cpp
+    src/processors/inverseKinematicProcessor.cpp
 )
 ivw_group("Source Files" ${SOURCE_FILES})
 
