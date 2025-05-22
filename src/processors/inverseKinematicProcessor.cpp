@@ -74,6 +74,8 @@ namespace inviwo {
         , l6("l6", "l6")
         , g6Mat("g6Mat", "g6Mat", (1.0f))
         , outG6Pos("outG6Pos", "outG6Pos")
+        
+        , target("target", "target")
     {
         addProperties(
             g1, g2, g3, g4, g5, g6,
@@ -81,25 +83,30 @@ namespace inviwo {
             outG1Pos, outG2Pos, outG3Pos, outG4Pos, outG5Pos, outG6Pos, outFPos,
             composite, list, 
             startMat, FMat,
-            g1Mat, g2Mat, g3Mat, g4Mat, g5Mat, g6Mat
+            g1Mat, g2Mat, g3Mat, g4Mat, g5Mat, g6Mat,
+
+            target
         );
 
         // LogInfo("robotics loaded");
 
         
         // Update on point position change
-        outFPos.onChange([&]() {
-            auto tmp = FMat.get();
-            tmp[3] = vec4(outFPos.get(), 1.0);
-            FMat.set(tmp);
-            });
+        //outFPos.onChange([&]() {
+        //    auto tmp = FMat.get();
+        //    tmp[3] = vec4(outFPos.get(), 1.0);
+        //    FMat.set(tmp);
+        //    });
     }
 
 void inviwo::InverseKinematicProcessor::process() {
     // Calculate inverse kinematic
 
+    // start * localTarget = targt
+    // localTarget = start^-1 * target
+    auto localTarget = glm::inverse(startMat.get()) * target.get();
 
-    auto fifthPos = vec3(FMat.get()[3]) - glm::vec3(vec3(FMat.get()[2]) * vec3(0, 0, l5.get() + l6.get()));
+    auto fifthPos = vec3(localTarget * vec4(0, 0, - l5.get() - l6.get(), 1));
 
     float a1 = glm::pi<float>() + glm::atan2(fifthPos.y, fifthPos.x);
     g1.set(glm::degrees(a1));
@@ -110,13 +117,15 @@ void inviwo::InverseKinematicProcessor::process() {
     if (glm::length(temp) > (l2.get() + l3.get() + l4.get())) {
         //onInverse = false;
         //this->process();
+        LogInfo("out of working space");
         return;
     }
-    //if (glm::length(temp) < glm::abs(l2.get() - l3.get() - l4.get())) {
-    //    //onInverse = false;
-    //    //this->process();
-    //    return;
-    //}
+    if (glm::length(temp) < glm::abs(l2.get() - l3.get() - l4.get())) {
+        //onInverse = false;
+        //this->process();
+        LogInfo("out of working space");
+        return;
+    }
 
     // out of working space
     //if (glm::length(outFPos.get() - vec3(0.0f, 0.0f, l1.get())) < glm::abs(l2.get() + l3.get() + l4.get() + l5.get() + l6.get())) {
@@ -146,8 +155,8 @@ void inviwo::InverseKinematicProcessor::process() {
 
     mat3 ori = glm::rotate(a1, glm::vec3(0, 0, 1)) * glm::rotate(a2 + a3, glm::vec3(0, 1, 0));
 
-    vec3 zf = vec3(FMat.get()[2]);
-    vec3 yf = vec3(FMat.get()[1]);
+    vec3 zf = vec3(localTarget[2]);
+    vec3 yf = vec3(localTarget[1]);
 
     vec3 z3 = vec3(ori[2]);
     vec3 y3 = vec3(ori[1]);
